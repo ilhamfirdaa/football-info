@@ -4,8 +4,8 @@
         "es6": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "airbnb"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -22,5 +22,29 @@
         "react"
     ],
     "rules": {
+        "radix": "off",
+        "camelcase": "off",
+        "max-len": "off",
+        "no-console": "off",
+        "linebreak-style": "off",
+        "semi": ["error", "never"],
+        "consistent-return": "off",
+        "no-fallthrough": "off",
+        "no-case-declarations": "off",
+        "no-use-before-define": "off",
+        "no-tabs": ["error", { "allowIndentationTabs": true }],
+        "import/prefer-default-export": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "react-hooks/exhaustive-deps": "off",
+        "react/no-unescaped-entities": "off",
+        "react/no-array-index-key": "off",
+        "react/jsx-fragments": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/prop-types": "off",
+        "react/require-default-props": "off"
     }
 }
