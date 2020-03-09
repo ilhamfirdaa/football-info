@@ -8,22 +8,22 @@ const League = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    getClubs()
-  }, [])
-
-  const getClubs = async () => {
-    try {
-      axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
-      const res = await axios.get(`https://api.football-data.org/v2/competitions/${leagueId}/teams`)
-      if (res.status === 200) {
-        const { teams } = res.data
-        setClubs(teams)
-        setIsLoading(false)
+    const getClubs = async () => {
+      try {
+        axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
+        const res = await axios.get(`https://api.football-data.org/v2/competitions/${leagueId}/teams`)
+        if (res.status === 200) {
+          const { teams } = res.data
+          setClubs(teams)
+          setIsLoading(false)
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
     }
-  }
+    getClubs()
+  }, [leagueId])
+
 
   return (
     <>

@@ -23,8 +23,7 @@ const Area = ({ match }) => {
       }
     }
     getLeagues()
-  }, [leagues])
-
+  }, [areaId])
 
   return (
     <>

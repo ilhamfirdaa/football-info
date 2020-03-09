@@ -8,22 +8,21 @@ const Continent = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    getAreas()
-  }, [])
-
-  const getAreas = async () => {
-    try {
-      axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
-      const res = await axios.get(`https://api.football-data.org/v2/areas/${continentId}`)
-      if (res.status === 200) {
-        const { childAreas } = res.data
-        setAreas(childAreas)
-        setIsLoading(false)
+    const getAreas = async () => {
+      try {
+        axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
+        const res = await axios.get(`https://api.football-data.org/v2/areas/${continentId}`)
+        if (res.status === 200) {
+          const { childAreas } = res.data
+          setAreas(childAreas)
+          setIsLoading(false)
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
     }
-  }
+    getAreas()
+  }, [continentId])
 
   return (
     <>
