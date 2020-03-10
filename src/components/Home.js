@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+
+import { apiContinents } from '../utils/apiHandler'
 
 const Home = () => {
   const [continents, setContinents] = useState()
@@ -12,8 +13,7 @@ const Home = () => {
 
   const getContinents = async () => {
     try {
-      axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
-      const res = await axios.get('https://api.football-data.org/v2/areas')
+      const res = await apiContinents()
       if (res.status === 200) {
         const { areas } = res.data
         const world = areas.filter((area) => area.parentAreaId === 2267 || area.parentArea === 'World')

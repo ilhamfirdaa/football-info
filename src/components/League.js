@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+
+import { apiClubs } from '../utils/apiHandler'
 
 const League = ({ match }) => {
   const { leagueId } = match.params
@@ -10,8 +11,7 @@ const League = ({ match }) => {
   useEffect(() => {
     const getClubs = async () => {
       try {
-        axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
-        const res = await axios.get(`https://api.football-data.org/v2/competitions/${leagueId}/teams`)
+        const res = await apiClubs(leagueId)
         if (res.status === 200) {
           const { teams } = res.data
           setClubs(teams)

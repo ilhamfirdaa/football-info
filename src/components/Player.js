@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import { Link } from 'react-router-dom'
-import axios from 'axios'
+
+import { apiPlayer } from '../utils/apiHandler'
 
 const Player = ({ match }) => {
   const { playerId } = match.params
@@ -10,8 +11,7 @@ const Player = ({ match }) => {
   useEffect(() => {
     const getPlayers = async () => {
       try {
-        axios.defaults.headers.common['X-Auth-Token'] = 'c146a6e19e384f519b9ff4ac1650961f'
-        const res = await axios.get(`https://api.football-data.org/v2/players/${playerId}`)
+        const res = await apiPlayer(playerId)
         if (res.status === 200) {
           setPlayer(res.data)
           setIsLoading(false)
