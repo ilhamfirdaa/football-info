@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
@@ -12,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { apiClubs } from '../utils/apiHandler'
+import Helmet from '../components/title'
+import Loader from '../components/loader'
 
 import noImage from '../assets/images/no-image.svg'
 
@@ -66,14 +67,10 @@ const League = ({ match, history, location }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Clubs List</title>
-      </Helmet>
+      <Helmet title="Club Lists" />
       {isLoading
         ? (
-          <div className={classes.loaderContainer}>
-            <div className="spinner" />
-          </div>
+          <Loader />
         )
         : (
           <>

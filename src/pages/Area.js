@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
 
 import Appbar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
@@ -14,6 +13,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { apiLeagues } from '../utils/apiHandler'
+import Helmet from '../components/title'
+import Loader from '../components/loader'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -68,14 +69,10 @@ const Area = ({ match, history }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Leagues List</title>
-      </Helmet>
+      <Helmet title="League Lists" />
       {isLoading
         ? (
-          <div className={classes.loaderContainer}>
-            <div className="spinner" />
-          </div>
+          <Loader />
         )
         : (
           <>

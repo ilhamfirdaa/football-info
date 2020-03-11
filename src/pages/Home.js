@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
@@ -9,6 +8,8 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { apiContinents } from '../utils/apiHandler'
+import Helmet from '../components/title'
+import Loader from '../components/loader'
 
 import Asia from '../components/asia'
 import Africa from '../components/africa'
@@ -76,14 +77,10 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>continent List</title>
-      </Helmet>
+      <Helmet title="Continent Lists" />
       {isLoading
         ? (
-          <div className={classes.loaderContainer}>
-            <div className="spinner" />
-          </div>
+          <Loader />
         )
         : (
           <>
