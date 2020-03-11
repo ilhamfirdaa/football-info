@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 0px rgba(0,0,0,0.14), 0px 0px 0px 0px rgba(0,0,0,0.12)',
   },
   mainContainer: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(4),
   },
   divider: {
     margin: theme.spacing(2),
@@ -63,11 +64,11 @@ const Player = ({ match, history }) => {
         : (
           <>
             <Appbar position="fixed" className={classes.header}>
-              <Container maxWidth="xl" style={{ padding: '8px' }}>
+              <Container maxWidth="md" style={{ padding: '8px 16px' }}>
                 <ArrowBackIcon onClick={() => history.goBack()} />
               </Container>
             </Appbar>
-            <Container maxWidth="xl" className={classes.mainContainer}>
+            <Container maxWidth="md" className={classes.mainContainer}>
               <Box
                 display="flex"
                 flexDirection="column"

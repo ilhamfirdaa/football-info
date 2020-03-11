@@ -11,12 +11,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 import { apiClubs } from '../utils/apiHandler'
 
+import noImage from '../assets/images/no-image.svg'
+
 const useStyles = makeStyles((theme) => ({
   header: {
     boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 0px rgba(0,0,0,0.14), 0px 0px 0px 0px rgba(0,0,0,0.12)',
   },
   mainContainer: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(4),
   },
   divider: {
     margin: theme.spacing(2),
@@ -49,6 +52,10 @@ const League = ({ match, history }) => {
     getClubs()
   }, [leagueId])
 
+  const defaultSrc = (ev) => {
+    // eslint-disable-next-line no-param-reassign
+    ev.target.src = noImage
+  }
 
   return (
     <>
@@ -61,14 +68,14 @@ const League = ({ match, history }) => {
         : (
           <>
             <Appbar position="fixed" className={classes.header}>
-              <Container maxWidth="xl" style={{ padding: '8px' }}>
+              <Container maxWidth="md" style={{ padding: '8px 16px' }}>
                 <ArrowBackIcon onClick={() => history.goBack()} />
               </Container>
             </Appbar>
-            <Container maxWidth="xl" className={classes.mainContainer} align="center">
+            <Container maxWidth="md" className={classes.mainContainer} align="center">
               <Grid container spacing={2}>
                 {clubs.map((club) => (
-                  <Grid item xs={6} key={club.id}>
+                  <Grid item xs={6} sm={4} md={3} key={club.id}>
                     <Link
                       to={{
                         pathname: `/club/${club.id}`,
@@ -78,7 +85,7 @@ const League = ({ match, history }) => {
                       }}
                       className={classes.link}
                     >
-                      <img src={club.crestUrl} alt={club.name} height="60px" />
+                      <img src={club.crestUrl === null ? noImage : club.crestUrl} onError={defaultSrc} alt={club.name} height="60px" />
                       <Typography variant="h6">
                         {club.name}
                       </Typography>
