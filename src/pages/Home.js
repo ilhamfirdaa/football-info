@@ -10,12 +10,12 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { apiContinents } from '../utils/apiHandler'
 
-import Asia from '../assets/asia'
-import Africa from '../assets/africa'
-import Europe from '../assets/europe'
-import NorthAmerica from '../assets/northAmerica'
-import Oceania from '../assets/oceania'
-import SouthAmerica from '../assets/southAmerica'
+import Asia from '../components/asia'
+import Africa from '../components/africa'
+import Europe from '../components/europe'
+import NorthAmerica from '../components/northAmerica'
+import Oceania from '../components/oceania'
+import SouthAmerica from '../components/southAmerica'
 
 const useStyles = makeStyles((theme) => ({
   header: {
