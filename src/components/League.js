@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: 'black',
   },
+  loaderContainer: {
+    height: '100vh',
+    backgroundColor: theme.palette.primary.main,
+  },
 }))
 
 const League = ({ match, history }) => {

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -38,6 +43,7 @@ const Continent = ({ match, history }) => {
         const res = await apiAreas(continentId)
         if (res.status === 200) {
           const { childAreas } = res.data
+          console.log(childAreas)
           setAreas(childAreas)
           setIsLoading(false)
         }
@@ -64,13 +70,25 @@ const Continent = ({ match, history }) => {
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer}>
-              <ul>
-                {areas.map((area) => (
-                  <Link to={`/area/${area.id}`} key={area.id}>
-                    <li>{area.name}</li>
-                  </Link>
-                ))}
-              </ul>
+              <Typography variant="h6">
+                {`${areas[0].parentArea} Area`}
+              </Typography>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell padding="none" style={{ fontWeight: '600' }}>Name</TableCell>
+                    <TableCell padding="none" style={{ fontWeight: '600' }}>Flag</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {areas.map((area) => (
+                    <TableRow key={area.id}>
+                      <TableCell padding="none" onClick={() => history.push(`/area/${area.id}`)}>{area.name}</TableCell>
+                      <TableCell padding="none"><img src={area.ensignUrl} alt="" height="10px" /></TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </Container>
           </>
         )}

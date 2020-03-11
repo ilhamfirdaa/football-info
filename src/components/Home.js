@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { apiContinents } from '../utils/apiHandler'
 
-const continentList = ['AFR', 'ASI', 'EUR', 'NCA', 'OCE', 'SAM']
+import Asia from '../assets/asia'
+import Africa from '../assets/africa'
+import Europe from '../assets/europe'
+import NorthAmerica from '../assets/northAmerica'
+import Oceania from '../assets/oceania'
+import SouthAmerica from '../assets/southAmerica'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -21,11 +27,28 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     margin: theme.spacing(2),
   },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+  },
   loaderContainer: {
     height: '100vh',
     backgroundColor: theme.palette.primary.main,
   },
 }))
+
+const continentList = ['AFR', 'ASI', 'EUR', 'NCA', 'OCE', 'SAM']
+
+const continentMap = new Map([
+  ['AFR', <Africa />],
+  ['ASI', <Asia />],
+  ['EUR', <Europe />],
+  ['NCA', <NorthAmerica />],
+  ['OCE', <Oceania />],
+  ['SAM', <SouthAmerica />],
+])
+
+const getMap = (code) => continentMap.get(code)
 
 const Home = () => {
   const classes = useStyles()
@@ -67,14 +90,19 @@ const Home = () => {
                 </Typography>
               </Container>
             </Appbar>
-            <Container maxWidth="md" className={classes.mainContainer}>
-              <ul>
+            <Container maxWidth="md" className={classes.mainContainer} align="center">
+              <Grid container spacing={2}>
                 {continents.map((continent) => (
-                  <Link to={`/continent/${continent.id}`} key={continent.id}>
-                    <li>{continent.name}</li>
-                  </Link>
+                  <Grid item xs={6} key={continent.id}>
+                    <Link to={`/continent/${continent.id}`} className={classes.link}>
+                      {getMap(continent.countryCode)}
+                      <Typography variant="h6">
+                        {continent.name}
+                      </Typography>
+                    </Link>
+                  </Grid>
                 ))}
-              </ul>
+              </Grid>
             </Container>
           </>
         )}

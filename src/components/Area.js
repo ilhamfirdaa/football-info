@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
 import Container from '@material-ui/core/Container'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -19,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     margin: theme.spacing(2),
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
   },
   loaderContainer: {
     height: '100vh',
@@ -65,13 +73,18 @@ const Area = ({ match, history }) => {
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer}>
-              <ul>
-                {leagues.map((league) => (
-                  <Link to={`/league/${league.id}`} key={league.id}>
-                    <li>{league.name}</li>
-                  </Link>
-                ))}
-              </ul>
+              <Typography variant="h6">
+                {`${leagues[0].area.name} Leagues & Cups`}
+              </Typography>
+              <Table>
+                <TableBody>
+                  {leagues.map((league) => (
+                    <TableRow key={league.id}>
+                      <TableCell padding="none" onClick={() => history.push(`/league/${league.id}`)}>{league.name}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </Container>
           </>
         )}
