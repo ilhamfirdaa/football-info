@@ -78,7 +78,7 @@ const Home = () => {
 
   return (
     <>
-      <Helmet title="Continent Lists" />
+      <Helmet title="Home" />
       {isLoading
         ? (
           <Loader />
@@ -95,7 +95,7 @@ const Home = () => {
             <Container maxWidth="md" className={classes.mainContainer} align="center">
               <Grid container spacing={2}>
                 {continents.map((continent) => (
-                  <Grid item xs={6} key={continent.id}>
+                  <Grid item xs={6} sm={4} md={4} key={continent.id}>
                     <Link to={`/continent/${continent.id}`} className={classes.link}>
                       {getMap(continent.countryCode)}
                       <Typography variant="h6">

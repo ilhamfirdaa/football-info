@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import Appbar from '@material-ui/core/AppBar'
-import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
 import { apiClubs } from '../utils/apiHandler'
+import Header from '../components/header'
 import Helmet from '../components/title'
 import Loader from '../components/loader'
 import { DataNotFound } from './NotFound'
@@ -18,9 +15,6 @@ import { DataNotFound } from './NotFound'
 import noImage from '../assets/images/no_image.svg'
 
 const useStyles = makeStyles((theme) => ({
-  header: {
-    boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 0px rgba(0,0,0,0.14), 0px 0px 0px 0px rgba(0,0,0,0.12)',
-  },
   mainContainer: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
@@ -69,26 +63,14 @@ const League = ({ match, history, location }) => {
 
   return (
     <>
-      <Helmet title="Club Lists" />
+      <Helmet title="Club Lists" history={history} />
       {isLoading
         ? (
           <Loader />
         )
         : (
           <>
-            <Appbar position="fixed" className={classes.header}>
-              <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                >
-                  <ArrowBackIcon onClick={() => history.goBack()} />
-                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    {league.name}
-                  </Typography>
-                </Box>
-              </Container>
-            </Appbar>
+            <Header titleHeader={league.name} />
             <Container maxWidth="md" className={classes.mainContainer} align="center">
               {clubs.length === 0
                 ? <DataNotFound />

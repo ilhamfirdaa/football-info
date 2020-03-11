@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 
-import Appbar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
@@ -13,18 +12,14 @@ import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
 import { apiSquads } from '../utils/apiHandler'
+import Header from '../components/header'
 import Helmet from '../components/title'
 import Loader from '../components/loader'
 
 import noImage from '../assets/images/no_image.svg'
 
 const useStyles = makeStyles((theme) => ({
-  header: {
-    boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 0px rgba(0,0,0,0.14), 0px 0px 0px 0px rgba(0,0,0,0.12)',
-  },
   mainContainer: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
@@ -43,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
   loaderContainer: {
     height: '100vh',
     backgroundColor: theme.palette.primary.main,
+  },
+  pointer: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
 }))
 
@@ -194,7 +194,13 @@ const Club = ({ match, history, location }) => {
             player.role === 'COACH'
             && (
             <TableRow key={player.id}>
-              <TableCell padding="none" onClick={() => history.push(`/player/${player.id}`)}>{player.name}</TableCell>
+              <TableCell
+                padding="none"
+                onClick={() => history.push(`/player/${player.id}`)}
+                className={classes.pointer}
+              >
+                {player.name}
+              </TableCell>
               <TableCell padding="none" align="right">{moment(player.dateOfBirth).fromNow().split(' ')[0]}</TableCell>
               <TableCell padding="none" align="right">{player.nationality}</TableCell>
             </TableRow>
@@ -223,7 +229,13 @@ const Club = ({ match, history, location }) => {
             player.position === 'Attacker'
                         && (
                         <TableRow key={player.id}>
-                          <TableCell padding="none" onClick={() => history.push(`/player/${player.id}`)}>{player.name}</TableCell>
+                          <TableCell
+                            padding="none"
+                            onClick={() => history.push(`/player/${player.id}`)}
+                            className={classes.pointer}
+                          >
+                            {player.name}
+                          </TableCell>
                           <TableCell padding="none" align="right">{moment(player.dateOfBirth).fromNow().split(' ')[0]}</TableCell>
                           <TableCell padding="none" align="right">{player.nationality}</TableCell>
                         </TableRow>
@@ -252,7 +264,13 @@ const Club = ({ match, history, location }) => {
             player.position === 'Midfielder'
                         && (
                         <TableRow key={player.id}>
-                          <TableCell padding="none" onClick={() => history.push(`/player/${player.id}`)}>{player.name}</TableCell>
+                          <TableCell
+                            padding="none"
+                            onClick={() => history.push(`/player/${player.id}`)}
+                            className={classes.pointer}
+                          >
+                            {player.name}
+                          </TableCell>
                           <TableCell padding="none" align="right">{moment(player.dateOfBirth).fromNow().split(' ')[0]}</TableCell>
                           <TableCell padding="none" align="right">{player.nationality}</TableCell>
                         </TableRow>
@@ -281,7 +299,13 @@ const Club = ({ match, history, location }) => {
             player.position === 'Defender'
                         && (
                         <TableRow key={player.id}>
-                          <TableCell padding="none" onClick={() => history.push(`/player/${player.id}`)}>{player.name}</TableCell>
+                          <TableCell
+                            padding="none"
+                            onClick={() => history.push(`/player/${player.id}`)}
+                            className={classes.pointer}
+                          >
+                            {player.name}
+                          </TableCell>
                           <TableCell padding="none" align="right">{moment(player.dateOfBirth).fromNow().split(' ')[0]}</TableCell>
                           <TableCell padding="none" align="right">{player.nationality}</TableCell>
                         </TableRow>
@@ -310,7 +334,13 @@ const Club = ({ match, history, location }) => {
             player.position === 'Goalkeeper'
                         && (
                         <TableRow key={player.id}>
-                          <TableCell padding="none" onClick={() => history.push(`/player/${player.id}`)}>{player.name}</TableCell>
+                          <TableCell
+                            padding="none"
+                            onClick={() => history.push(`/player/${player.id}`)}
+                            className={classes.pointer}
+                          >
+                            {player.name}
+                          </TableCell>
                           <TableCell padding="none" align="right">{moment(player.dateOfBirth).fromNow().split(' ')[0]}</TableCell>
                           <TableCell padding="none" align="right">{player.nationality}</TableCell>
                         </TableRow>
@@ -330,19 +360,7 @@ const Club = ({ match, history, location }) => {
         )
         : (
           <>
-            <Appbar position="fixed" className={classes.header}>
-              <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                >
-                  <ArrowBackIcon onClick={() => history.goBack()} />
-                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    Club Info
-                  </Typography>
-                </Box>
-              </Container>
-            </Appbar>
+            <Header titleHeader="Club Info" history={history} />
             <Container maxWidth="md" className={classes.mainContainer}>
               <ClubInformation />
               <ContactInformation />
