@@ -336,7 +336,9 @@ const Club = ({ match, history, location }) => {
     <>
       {isLoading
         ? (
-          <h5>Loading...</h5>
+          <div className={classes.loaderContainer}>
+            <div className="spinner" />
+          </div>
         )
         : (
           <>

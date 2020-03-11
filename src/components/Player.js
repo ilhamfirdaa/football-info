@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     margin: theme.spacing(2),
   },
+  loaderContainer: {
+    height: '100vh',
+    backgroundColor: theme.palette.primary.main,
+  },
 }))
 
 const Player = ({ match, history }) => {
@@ -52,7 +56,9 @@ const Player = ({ match, history }) => {
     <>
       {isLoading
         ? (
-          <h5>Loading...</h5>
+          <div className={classes.loaderContainer}>
+            <div className="spinner" />
+          </div>
         )
         : (
           <>

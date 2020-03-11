@@ -54,7 +54,9 @@ const League = ({ match, history }) => {
     <>
       {isLoading
         ? (
-          <h5>Loading...</h5>
+          <div className={classes.loaderContainer}>
+            <div className="spinner" />
+          </div>
         )
         : (
           <>
