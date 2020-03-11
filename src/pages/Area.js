@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import Appbar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import { apiClubs } from '../utils/apiHandler'
-
-import noImage from '../assets/images/no-image.svg'
+import { apiLeagues } from '../utils/apiHandler'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -35,36 +36,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const League = ({ match, history, location }) => {
+const Area = ({ match, history }) => {
   const classes = useStyles()
-  const { leagueId } = match.params
-  const { league } = location.state
-  const [clubs, setClubs] = useState()
+  const { areaId } = match.params
+  const [leagues, setLeagues] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const getClubs = async () => {
+    const getLeagues = async () => {
       try {
-        const res = await apiClubs(leagueId)
+        const res = await apiLeagues()
         if (res.status === 200) {
-          const { teams } = res.data
-          setClubs(teams)
+          const { competitions } = res.data
+          const league = competitions.filter((competition) => parseInt(competition.area.id) === parseInt(areaId))
+          setLeagues(league)
           setIsLoading(false)
         }
       } catch (error) {
         console.log(error)
       }
     }
-    getClubs()
-  }, [leagueId])
+    getLeagues()
+  }, [areaId])
 
-  const defaultSrc = (ev) => {
-    // eslint-disable-next-line no-param-reassign
-    ev.target.src = noImage
+  const handleChangeRoute = (league) => {
+    history.push({
+      pathname: `/league/${league.id}`,
+      state: { league },
+    })
   }
 
   return (
     <>
+      <Helmet>
+        <title>Leagues List</title>
+      </Helmet>
       {isLoading
         ? (
           <div className={classes.loaderContainer}>
@@ -81,32 +87,24 @@ const League = ({ match, history, location }) => {
                 >
                   <ArrowBackIcon onClick={() => history.goBack()} />
                   <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    {league.name}
+                    {`${leagues[0].area.name} Leagues & Cups`}
                   </Typography>
                 </Box>
               </Container>
             </Appbar>
-            <Container maxWidth="md" className={classes.mainContainer} align="center">
-              <Grid container spacing={2}>
-                {clubs.map((club) => (
-                  <Grid item xs={6} sm={4} md={3} key={club.id}>
-                    <Link
-                      to={{
-                        pathname: `/club/${club.id}`,
-                        state: {
-                          clubInfo: club,
-                        },
-                      }}
-                      className={classes.link}
-                    >
-                      <img src={club.crestUrl === null ? noImage : club.crestUrl} onError={defaultSrc} alt={club.name} height="60px" />
-                      <Typography variant="subtitle1">
-                        {club.name}
-                      </Typography>
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid>
+            <Container maxWidth="md" className={classes.mainContainer}>
+              {/* <Typography variant="h6">
+                {`${leagues[0].area.name} Leagues & Cups`}
+              </Typography> */}
+              <Table size="small">
+                <TableBody>
+                  {leagues.map((league) => (
+                    <TableRow key={league.id}>
+                      <TableCell onClick={() => handleChangeRoute(league)}>{league.name}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </Container>
           </>
         )}
@@ -114,4 +112,4 @@ const League = ({ match, history, location }) => {
   )
 }
 
-export default League
+export default Area

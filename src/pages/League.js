@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import { apiLeagues } from '../utils/apiHandler'
+import { apiClubs } from '../utils/apiHandler'
+
+import noImage from '../assets/images/no-image.svg'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -35,38 +36,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Area = ({ match, history }) => {
+const League = ({ match, history, location }) => {
   const classes = useStyles()
-  const { areaId } = match.params
-  const [leagues, setLeagues] = useState()
+  const { leagueId } = match.params
+  const { league } = location.state
+  const [clubs, setClubs] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const getLeagues = async () => {
+    const getClubs = async () => {
       try {
-        const res = await apiLeagues()
+        const res = await apiClubs(leagueId)
         if (res.status === 200) {
-          const { competitions } = res.data
-          const league = competitions.filter((competition) => parseInt(competition.area.id) === parseInt(areaId))
-          setLeagues(league)
+          const { teams } = res.data
+          setClubs(teams)
           setIsLoading(false)
         }
       } catch (error) {
         console.log(error)
       }
     }
-    getLeagues()
-  }, [areaId])
+    getClubs()
+  }, [leagueId])
 
-  const handleChangeRoute = (league) => {
-    history.push({
-      pathname: `/league/${league.id}`,
-      state: { league },
-    })
+  const defaultSrc = (ev) => {
+    // eslint-disable-next-line no-param-reassign
+    ev.target.src = noImage
   }
 
   return (
     <>
+      <Helmet>
+        <title>Clubs List</title>
+      </Helmet>
       {isLoading
         ? (
           <div className={classes.loaderContainer}>
@@ -83,24 +85,32 @@ const Area = ({ match, history }) => {
                 >
                   <ArrowBackIcon onClick={() => history.goBack()} />
                   <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    {`${leagues[0].area.name} Leagues & Cups`}
+                    {league.name}
                   </Typography>
                 </Box>
               </Container>
             </Appbar>
-            <Container maxWidth="md" className={classes.mainContainer}>
-              {/* <Typography variant="h6">
-                {`${leagues[0].area.name} Leagues & Cups`}
-              </Typography> */}
-              <Table size="small">
-                <TableBody>
-                  {leagues.map((league) => (
-                    <TableRow key={league.id}>
-                      <TableCell onClick={() => handleChangeRoute(league)}>{league.name}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+            <Container maxWidth="md" className={classes.mainContainer} align="center">
+              <Grid container spacing={2}>
+                {clubs.map((club) => (
+                  <Grid item xs={6} sm={4} md={3} key={club.id}>
+                    <Link
+                      to={{
+                        pathname: `/club/${club.id}`,
+                        state: {
+                          clubInfo: club,
+                        },
+                      }}
+                      className={classes.link}
+                    >
+                      <img src={club.crestUrl === null ? noImage : club.crestUrl} onError={defaultSrc} alt={club.name} height="60px" />
+                      <Typography variant="subtitle1">
+                        {club.name}
+                      </Typography>
+                    </Link>
+                  </Grid>
+                ))}
+              </Grid>
             </Container>
           </>
         )}
@@ -108,4 +118,4 @@ const Area = ({ match, history }) => {
   )
 }
 
-export default Area
+export default League

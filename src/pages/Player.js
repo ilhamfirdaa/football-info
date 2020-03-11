@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 
 import Appbar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
@@ -54,6 +55,9 @@ const Player = ({ match, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Player Info</title>
+      </Helmet>
       {isLoading
         ? (
           <div className={classes.loaderContainer}>
@@ -64,7 +68,15 @@ const Player = ({ match, history }) => {
           <>
             <Appbar position="fixed" className={classes.header}>
               <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <ArrowBackIcon onClick={() => history.goBack()} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                >
+                  <ArrowBackIcon onClick={() => history.goBack()} />
+                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
+                    Player Info
+                  </Typography>
+                </Box>
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer}>

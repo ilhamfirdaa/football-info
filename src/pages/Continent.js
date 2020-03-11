@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 
 import Appbar from '@material-ui/core/AppBar'
 import Box from '@material-ui/core/Box'
@@ -56,6 +57,9 @@ const Continent = ({ match, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Areas List</title>
+      </Helmet>
       {isLoading
         ? (
           <div className={classes.loaderContainer}>

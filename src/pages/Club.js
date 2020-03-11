@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import moment from 'moment'
 
 import Appbar from '@material-ui/core/AppBar'
@@ -320,6 +321,9 @@ const Club = ({ match, history, location }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Club Info</title>
+      </Helmet>
       {isLoading
         ? (
           <div className={classes.loaderContainer}>
@@ -336,7 +340,7 @@ const Club = ({ match, history, location }) => {
                 >
                   <ArrowBackIcon onClick={() => history.goBack()} />
                   <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    {clubInfo.name}
+                    Club Info
                   </Typography>
                 </Box>
               </Container>

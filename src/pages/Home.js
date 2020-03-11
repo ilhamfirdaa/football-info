@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
@@ -75,6 +76,9 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>continent List</title>
+      </Helmet>
       {isLoading
         ? (
           <div className={classes.loaderContainer}>

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import Home from './components/Home'
-import Continent from './components/Continent'
-import Area from './components/Area'
-import League from './components/League'
-import Club from './components/Club'
-import Player from './components/Player'
+import Home from './pages/Home'
+import Continent from './pages/Continent'
+import Area from './pages/Area'
+import League from './pages/League'
+import Club from './pages/Club'
+import Player from './pages/Player'
 
 import './App.css'
 
