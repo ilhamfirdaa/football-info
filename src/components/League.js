@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Appbar from '@material-ui/core/AppBar'
+import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -34,9 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const League = ({ match, history }) => {
+const League = ({ match, history, location }) => {
   const classes = useStyles()
   const { leagueId } = match.params
+  const { league } = location.state
   const [clubs, setClubs] = useState()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -73,7 +75,15 @@ const League = ({ match, history }) => {
           <>
             <Appbar position="fixed" className={classes.header}>
               <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <ArrowBackIcon onClick={() => history.goBack()} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                >
+                  <ArrowBackIcon onClick={() => history.goBack()} />
+                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
+                    {league.name}
+                  </Typography>
+                </Box>
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer} align="center">
@@ -90,7 +100,7 @@ const League = ({ match, history }) => {
                       className={classes.link}
                     >
                       <img src={club.crestUrl === null ? noImage : club.crestUrl} onError={defaultSrc} alt={club.name} height="60px" />
-                      <Typography variant="h6">
+                      <Typography variant="subtitle1">
                         {club.name}
                       </Typography>
                     </Link>

@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
   },
+  loaderContainer: {
+    height: '100vh',
+    backgroundColor: theme.palette.primary.main,
+  },
 }))
 
 const Club = ({ match, history, location }) => {
@@ -326,7 +330,15 @@ const Club = ({ match, history, location }) => {
           <>
             <Appbar position="fixed" className={classes.header}>
               <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <ArrowBackIcon onClick={() => history.goBack()} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                >
+                  <ArrowBackIcon onClick={() => history.goBack()} />
+                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
+                    {clubInfo.name}
+                  </Typography>
+                </Box>
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer}>

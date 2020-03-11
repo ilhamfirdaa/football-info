@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Appbar from '@material-ui/core/AppBar'
+import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -57,6 +58,13 @@ const Area = ({ match, history }) => {
     getLeagues()
   }, [areaId])
 
+  const handleChangeRoute = (league) => {
+    history.push({
+      pathname: `/league/${league.id}`,
+      state: { league },
+    })
+  }
+
   return (
     <>
       {isLoading
@@ -69,18 +77,26 @@ const Area = ({ match, history }) => {
           <>
             <Appbar position="fixed" className={classes.header}>
               <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <ArrowBackIcon onClick={() => history.goBack()} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                >
+                  <ArrowBackIcon onClick={() => history.goBack()} />
+                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
+                    {`${leagues[0].area.name} Leagues & Cups`}
+                  </Typography>
+                </Box>
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer}>
-              <Typography variant="h6">
+              {/* <Typography variant="h6">
                 {`${leagues[0].area.name} Leagues & Cups`}
-              </Typography>
-              <Table>
+              </Typography> */}
+              <Table size="small">
                 <TableBody>
                   {leagues.map((league) => (
                     <TableRow key={league.id}>
-                      <TableCell padding="none" onClick={() => history.push(`/league/${league.id}`)}>{league.name}</TableCell>
+                      <TableCell onClick={() => handleChangeRoute(league)}>{league.name}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

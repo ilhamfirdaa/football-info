@@ -52,7 +52,6 @@ const Player = ({ match, history }) => {
     getPlayers()
   }, [playerId])
 
-
   return (
     <>
       {isLoading
@@ -81,40 +80,42 @@ const Player = ({ match, history }) => {
                 </Typography>
               </Box>
               <Divider className={classes.divider} />
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <Typography variant="caption">
-                    Full Name
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    {player.name}
-                  </Typography>
+              <Container maxWidth="md">
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography variant="caption">
+                      Full Name
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      {player.name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="caption">
+                      Nationality
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      {player.nationality}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="caption">
+                      Position
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      {player.position}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="caption">
+                      Age/Birthday
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      {player.dateOfBirth}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption">
-                    Nationality
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    {player.nationality}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption">
-                    Position
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    {player.position}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption">
-                    Age/Birthday
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    {player.dateOfBirth}
-                  </Typography>
-                </Grid>
-              </Grid>
+              </Container>
             </Container>
           </>
         )}

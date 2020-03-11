@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Appbar from '@material-ui/core/AppBar'
+import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -43,7 +44,6 @@ const Continent = ({ match, history }) => {
         const res = await apiAreas(continentId)
         if (res.status === 200) {
           const { childAreas } = res.data
-          console.log(childAreas)
           setAreas(childAreas)
           setIsLoading(false)
         }
@@ -66,25 +66,33 @@ const Continent = ({ match, history }) => {
           <>
             <Appbar position="fixed" className={classes.header}>
               <Container maxWidth="md" style={{ padding: '8px 16px' }}>
-                <ArrowBackIcon onClick={() => history.goBack()} />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                >
+                  <ArrowBackIcon onClick={() => history.goBack()} />
+                  <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
+                    {`${areas[0].parentArea} Area`}
+                  </Typography>
+                </Box>
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer}>
-              <Typography variant="h6">
+              {/* <Typography variant="h6">
                 {`${areas[0].parentArea} Area`}
-              </Typography>
-              <Table>
+              </Typography> */}
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell padding="none" style={{ fontWeight: '600' }}>Name</TableCell>
-                    <TableCell padding="none" style={{ fontWeight: '600' }}>Flag</TableCell>
+                    <TableCell style={{ fontWeight: '600' }}>Name</TableCell>
+                    <TableCell style={{ fontWeight: '600' }}>Flag</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {areas.map((area) => (
                     <TableRow key={area.id}>
-                      <TableCell padding="none" onClick={() => history.push(`/area/${area.id}`)}>{area.name}</TableCell>
-                      <TableCell padding="none"><img src={area.ensignUrl} alt="" height="10px" /></TableCell>
+                      <TableCell onClick={() => history.push(`/area/${area.id}`)}>{area.name}</TableCell>
+                      <TableCell><img src={area.ensignUrl} alt="" height="10px" /></TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
