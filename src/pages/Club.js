@@ -19,7 +19,7 @@ import { apiSquads } from '../utils/apiHandler'
 import Helmet from '../components/title'
 import Loader from '../components/loader'
 
-import noImage from '../assets/images/no-image.svg'
+import noImage from '../assets/images/no_image.svg'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -63,7 +63,8 @@ const Club = ({ match, history, location }) => {
           setIsLoading(false)
         }
       } catch (error) {
-        console.log(error)
+        setSquads([])
+        setIsLoading(false)
       }
     }
     getSquads()

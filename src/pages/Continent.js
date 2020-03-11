@@ -50,7 +50,8 @@ const Continent = ({ match, history }) => {
           setIsLoading(false)
         }
       } catch (error) {
-        console.log(error)
+        setAreas([])
+        setIsLoading(false)
       }
     }
     getAreas()
@@ -73,7 +74,7 @@ const Continent = ({ match, history }) => {
                 >
                   <ArrowBackIcon onClick={() => history.goBack()} />
                   <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    {`${areas[0].parentArea} Area`}
+                    {areas[0].parentArea}
                   </Typography>
                 </Box>
               </Container>

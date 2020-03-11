@@ -71,7 +71,8 @@ const Home = () => {
         setIsLoading(false)
       }
     } catch (error) {
-      console.log(error)
+      setContinents([])
+      setIsLoading(false)
     }
   }
 

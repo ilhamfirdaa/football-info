@@ -48,7 +48,8 @@ const Player = ({ match, history }) => {
           setIsLoading(false)
         }
       } catch (error) {
-        console.log(error)
+        setPlayer([])
+        setIsLoading(false)
       }
     }
     getPlayers()

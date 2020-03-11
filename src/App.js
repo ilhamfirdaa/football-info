@@ -1,11 +1,12 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import Home from './pages/Home'
-import Continent from './pages/Continent'
 import Area from './pages/Area'
-import League from './pages/League'
 import Club from './pages/Club'
+import Continent from './pages/Continent'
+import Home from './pages/Home'
+import League from './pages/League'
+import NotFound from './pages/NotFound'
 import Player from './pages/Player'
 
 import './App.css'
@@ -19,6 +20,7 @@ function App() {
       <Route path="/league/:leagueId" component={League} />
       <Route path="/club/:clubId" component={Club} />
       <Route path="/player/:playerId" component={Player} />
+      <Route component={NotFound} />
     </Switch>
   )
 }

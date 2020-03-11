@@ -15,6 +15,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { apiLeagues } from '../utils/apiHandler'
 import Helmet from '../components/title'
 import Loader from '../components/loader'
+import { DataNotFound } from './NotFound'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -54,7 +55,8 @@ const Area = ({ match, history }) => {
           setIsLoading(false)
         }
       } catch (error) {
-        console.log(error)
+        setLeagues([])
+        setIsLoading(false)
       }
     }
     getLeagues()
@@ -84,7 +86,7 @@ const Area = ({ match, history }) => {
                 >
                   <ArrowBackIcon onClick={() => history.goBack()} />
                   <Typography variant="h6" style={{ display: 'inline-block', marginLeft: '8px' }}>
-                    {`${leagues[0].area.name} Leagues & Cups`}
+                    Domestic Leagues & Cups
                   </Typography>
                 </Box>
               </Container>
@@ -93,15 +95,19 @@ const Area = ({ match, history }) => {
               {/* <Typography variant="h6">
                 {`${leagues[0].area.name} Leagues & Cups`}
               </Typography> */}
-              <Table size="small">
-                <TableBody>
-                  {leagues.map((league) => (
-                    <TableRow key={league.id}>
-                      <TableCell onClick={() => handleChangeRoute(league)}>{league.name}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              {leagues.length === 0
+                ? <DataNotFound />
+                : (
+                  <Table size="small">
+                    <TableBody>
+                      {leagues.map((league) => (
+                        <TableRow key={league.id}>
+                          <TableCell onClick={() => handleChangeRoute(league)}>{league.name}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
             </Container>
           </>
         )}

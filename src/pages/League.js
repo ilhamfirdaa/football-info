@@ -13,8 +13,9 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { apiClubs } from '../utils/apiHandler'
 import Helmet from '../components/title'
 import Loader from '../components/loader'
+import { DataNotFound } from './NotFound'
 
-import noImage from '../assets/images/no-image.svg'
+import noImage from '../assets/images/no_image.svg'
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -54,7 +55,8 @@ const League = ({ match, history, location }) => {
           setIsLoading(false)
         }
       } catch (error) {
-        console.log(error)
+        setClubs([])
+        setIsLoading(false)
       }
     }
     getClubs()
@@ -88,26 +90,30 @@ const League = ({ match, history, location }) => {
               </Container>
             </Appbar>
             <Container maxWidth="md" className={classes.mainContainer} align="center">
-              <Grid container spacing={2}>
-                {clubs.map((club) => (
-                  <Grid item xs={6} sm={4} md={3} key={club.id}>
-                    <Link
-                      to={{
-                        pathname: `/club/${club.id}`,
-                        state: {
-                          clubInfo: club,
-                        },
-                      }}
-                      className={classes.link}
-                    >
-                      <img src={club.crestUrl === null ? noImage : club.crestUrl} onError={defaultSrc} alt={club.name} height="60px" />
-                      <Typography variant="subtitle1">
-                        {club.name}
-                      </Typography>
-                    </Link>
+              {clubs.length === 0
+                ? <DataNotFound />
+                : (
+                  <Grid container spacing={2}>
+                    {clubs.map((club) => (
+                      <Grid item xs={6} sm={4} md={3} key={club.id}>
+                        <Link
+                          to={{
+                            pathname: `/club/${club.id}`,
+                            state: {
+                              clubInfo: club,
+                            },
+                          }}
+                          className={classes.link}
+                        >
+                          <img src={club.crestUrl === null ? noImage : club.crestUrl} onError={defaultSrc} alt={club.name} height="60px" />
+                          <Typography variant="subtitle1">
+                            {club.name}
+                          </Typography>
+                        </Link>
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
-              </Grid>
+                )}
             </Container>
           </>
         )}
