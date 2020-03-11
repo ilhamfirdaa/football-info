@@ -1,4 +1,7 @@
-This project was created with create-react-app. After cloning repository, follow instruction below.
+This project was created with create-react-app, material ui for styling, axios for fetch api.
+I use eslint, husky and lint-staged while development.
+
+After cloning repository, follow instruction below.
 
 In the project directory, you can run:
 
